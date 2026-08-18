@@ -1,11 +1,13 @@
-import { Card } from '../../../shared/ui/Card';
+import { ProductCard } from '../../../entities/product';
 import s from './CardList.module.css';
+import { useProducts } from '../../../shared/store/hooks/useProducts';
 
 type CardListProps = {
 	title: string;
-	products: Product[];
 };
-export const CardList = ({ title, products }: CardListProps) => {
+export const CardList = ({ title }: CardListProps) => {
+	const { products } = useProducts();
+
 	if (!products.length) {
 		return <h1 className='header-title'>Товар не найден</h1>;
 	}
@@ -17,7 +19,7 @@ export const CardList = ({ title, products }: CardListProps) => {
 			</div>
 			<div className={s['card-list__items']}>
 				{products.map((product) => (
-					<Card key={product.id} product={product} />
+					<ProductCard key={product.id} product={product} />
 				))}
 			</div>
 		</div>

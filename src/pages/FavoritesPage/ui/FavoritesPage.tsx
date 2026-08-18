@@ -7,7 +7,7 @@ import { CardList } from '../../../widgets/CardList';
 const CardListWithQuery = WithQuery(CardList);
 
 export const FavoritesPage = WithProtection(() => {
-	const { isLoading, isError, products, error } = useProducts();
+	const { isLoading, isError, error } = useProducts();
 
 	return (
 		<>
@@ -17,7 +17,6 @@ export const FavoritesPage = WithProtection(() => {
 				title='Избранные'
 				isLoading={isLoading}
 				isError={isError}
-				products={products}
 				error={error}
 			/>
 		</>
