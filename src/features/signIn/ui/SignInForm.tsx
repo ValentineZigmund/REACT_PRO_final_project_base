@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import {
 	Avatar,
 	Box,
@@ -23,6 +23,8 @@ import { getMessageFromError } from '../../../shared/utils';
 import { Modal } from '../../../shared/ui/Modal';
 
 export const SignInForm: FC = () => {
+	const loginInputRef = useRef<HTMLInputElement>(null);
+	const clickRef = useRef<number>(0);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -31,6 +33,9 @@ export const SignInForm: FC = () => {
 	// Из хука useSignUpMutation (был получен путем автогенерации)
 	// достаем функцию, которая будет (регистрировать пользователя) делать POST-запрос к нашем серверу)
 	const [signInRequestFn] = useSignInMutation();
+	useEffect(() => {
+		loginInputRef.current?.focus();
+	}, []);
 	// инициализируем react-hook-form
 	const {
 		// control понадобиться, чтобы подружить react-hook-form и компоненты из MUI
@@ -86,7 +91,18 @@ export const SignInForm: FC = () => {
 			<Modal
 				isOpen={isModalOpen}
 				title={'Title'}
-				body={<div>Добро пожаловать!</div>}
+				body={
+					<div>
+						Добро пожаловать!
+						<button
+							onClick={() => {
+								clickRef.current += 1;
+								console.log('ref is', clickRef.current);
+							}}>
+							Click!
+						</button>
+					</div>
+				}
 				closeHandler={() => setIsModalOpen((prev) => !prev)}
 			/>
 			<Container component='main' maxWidth='xs'>
@@ -116,6 +132,7 @@ export const SignInForm: FC = () => {
 							control={control}
 							render={({ field }) => (
 								<TextField
+									inputRef={loginInputRef}
 									margin='normal'
 									label='Email Address'
 									type='email'
