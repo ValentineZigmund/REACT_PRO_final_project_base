@@ -2,20 +2,22 @@ import { ReactComponent as TrashIcon } from '../../../../../shared/assets/icons/
 import { Link } from 'react-router-dom';
 import s from '../../Cart.module.css';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
-import { cartActions } from '../../../../../shared/store/slices/cart';
+
 import { CartCounter } from '../../../../../features/cartCounter';
+import { memo } from 'react';
 
 type CartItemProps = {
 	product: CartProduct;
+	handleDelete: (id: string) => void;
 };
-export const CartItem = ({ product }: CartItemProps) => {
-	const dispatch = useDispatch();
+export const CartItem = memo(function CartItem({
+	product,
+	handleDelete,
+}: CartItemProps) {
 	const { id, name, images, price, discount } = product;
 
-	const handleDelete = () => {
-		dispatch(cartActions.deleteCartProduct(id));
-	};
+	console.log(`render cartitem ${name}`);
+
 	return (
 		<div className={classNames(s['cart-item'])}>
 			<div className={classNames(s['cart-item__desc'])}>
@@ -49,11 +51,11 @@ export const CartItem = ({ product }: CartItemProps) => {
 							</div>
 						</div>
 						<button className={classNames(s['cart-item__bnt-trash'])}>
-							<TrashIcon onClick={handleDelete} />
+							<TrashIcon onClick={() => handleDelete(id)} />
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
-};
+});
