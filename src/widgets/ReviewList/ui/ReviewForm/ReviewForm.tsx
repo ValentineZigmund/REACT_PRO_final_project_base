@@ -1,37 +1,44 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, useActionState } from 'react';
 import classNames from 'classnames';
 import s from './ReviewForm.module.css';
 import { Rating } from '../../../../shared/ui/Rating';
 import { Button } from '../../../../shared/ui/Button';
 
+const mockApi = async (text: string, rating: number) => {
+	await new Promise((resolve) => setTimeout(resolve, 0));
+	alert(`new review: ${text} rating: ${rating}`);
+	return true;
+};
+
+const initial = {
+	status: 'idle',
+};
+
 export const ReviewForm = () => {
-	const [reviewText, setReviewText] = useState('');
 	const [rating, setRating] = useState(0);
 
-	const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-		setReviewText(e.target.value);
-	};
+	const [, formAction, isPending] = useActionState(
+		async (_prev: unknown, data: FormData) => {
+			const text = String(data.get('text') ?? '');
 
-	const handleClick = () => {
-		console.log('Отправка: ', { reviewText, rating });
-	};
+			await mockApi(text, rating);
+
+			return initial;
+		},
+		initial
+	);
 
 	return (
-		<form className={s['form']}>
+		<form action={formAction} className={s['form']}>
 			<Rating isEdit rating={rating} onChange={setRating} />
 			<textarea
 				className={classNames(s['input'], s['textarea'])}
 				name='text'
 				id='text'
 				placeholder='Напишите текст отзыва'
-				value={reviewText}
-				onChange={handleChange}></textarea>
+			/>
 			<div className={classNames(s['form__btn-wrapper'])}>
-				<Button
-					htmlType='submit'
-					size='Large'
-					onClick={handleClick}
-					width={356}>
+				<Button disabled={isPending} htmlType='submit' size='Large' width={356}>
 					Отправить отзыв
 				</Button>
 			</div>

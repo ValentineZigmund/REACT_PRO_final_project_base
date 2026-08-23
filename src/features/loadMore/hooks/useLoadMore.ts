@@ -7,7 +7,7 @@ import {
 } from '../../../shared/store/slices/products';
 
 interface UseLoadMoreParams {
-	ref: RefObject<HTMLDivElement>;
+	ref: RefObject<HTMLDivElement> | null;
 }
 export const useLoadMore = ({ ref }: UseLoadMoreParams) => {
 	const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ export const useLoadMore = ({ ref }: UseLoadMoreParams) => {
 				}
 			};
 			observer = new IntersectionObserver(callback, options);
-			ref.current && observer.observe(ref.current);
+			ref?.current && observer.observe(ref.current);
 		}
 
 		return () => {

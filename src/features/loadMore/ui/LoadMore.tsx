@@ -4,6 +4,7 @@ import { useLoadMore } from '../hooks/useLoadMore';
 
 export const LoadMore = () => {
 	const ref = useRef<HTMLDivElement>(null);
+	// @ts-expect-error old code
 	const { isEndOfList, isFetching } = useLoadMore({ ref });
 
 	return (
