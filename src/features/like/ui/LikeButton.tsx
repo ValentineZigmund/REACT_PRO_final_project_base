@@ -1,5 +1,5 @@
 import s from './LikeButton.module.css';
-import { ReactComponent as LikeSvg } from './../../../shared/assets/icons/like.svg';
+import LikeSvg from './../../../shared/assets/icons/like.svg?react';
 import classNames from 'classnames';
 import { useAppSelector } from '../../../shared/store/utils';
 import { userSelectors } from '../../../shared/store/slices/user';

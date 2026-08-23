@@ -7,3 +7,4 @@ dist
 webpack/*.js
 package*.json
 custom.d.ts
+vite.config.ts

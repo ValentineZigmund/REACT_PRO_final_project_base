@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { RouterProvider } from 'react-router-dom';
