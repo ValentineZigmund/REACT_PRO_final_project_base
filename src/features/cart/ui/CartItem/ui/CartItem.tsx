@@ -16,8 +16,6 @@ export const CartItem = memo(function CartItem({
 }: CartItemProps) {
 	const { id, name, images, price, discount } = product;
 
-	console.log(`render cartitem ${name}`);
-
 	return (
 		<div className={classNames(s['cart-item'])}>
 			<div className={classNames(s['cart-item__desc'])}>

@@ -25,7 +25,7 @@ import { Modal } from '../../../shared/ui/Modal';
 export const SignInForm: FC = () => {
 	const loginInputRef = useRef<HTMLInputElement>(null);
 	const clickRef = useRef<number>(0);
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const dispatch = useDispatch();
 	const location = useLocation();
 	// navigate поможет сделать редирект в нужный момент
