@@ -88,6 +88,11 @@ export const SignInForm: FC = () => {
 
 	return (
 		<>
+			<button
+				style={{ position: 'absolute', top: 130, right: 100 }}
+				onClick={() => setIsModalOpen((prev) => !prev)}>
+				handle modal
+			</button>
 			<Modal
 				isOpen={isModalOpen}
 				title={'Title'}
